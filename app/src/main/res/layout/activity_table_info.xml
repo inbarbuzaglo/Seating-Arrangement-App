@@ -4,18 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     tools:context=".TableInfo">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="this is table_info Page"/>
 
-    <Button
-        android:id="@+id/etComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Click here for comment"/>o
+        android:layout_width="171dp"
+        android:layout_height="52dp"
+        android:text=":מספר שולחן@"
+        android:textDirection="rtl"
+        android:textSize="50px"
+
+        />
+
+    <TextView
+
+        android:layout_width="171dp"
+        android:layout_height="52dp"
+        android:text=":מספר מקומות"
+        android:textDirection="rtl"
+
+        android:textSize="50px" />
+
+    <TextView
+
+        android:layout_width="171dp"
+        android:layout_height="52dp"
+        android:text="הוסף מוזמנים"
+        android:textDirection="rtl"
+        android:textSize="50px"
+
+        />
+
 
 </LinearLayout>
