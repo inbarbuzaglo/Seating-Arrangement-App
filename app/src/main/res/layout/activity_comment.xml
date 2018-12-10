@@ -13,9 +13,4 @@
         android:text="this is the Comment page"/>
 
     
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="this is the Comment page"/>
-    
 </LinearLayout>
