@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "596479974377",
+    "firebase_url": "https://seatingarrangement-fbdde.firebaseio.com",
+    "project_id": "seatingarrangement-fbdde",
+    "storage_bucket": "seatingarrangement-fbdde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596479974377:android:b8b65f2d65414a17",
+        "android_client_info": {
+          "package_name": "com.seatingarrangement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596479974377-0f4b16oko5sdp7hv1ifa821h1qsq7vnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seatingarrangement",
+            "certificate_hash": "f69b9ca21ef3e620c643da777f1c66c695cea3dd"
+          }
+        },
+        {
+          "client_id": "596479974377-p0nlsbmlcbv9kn4pogub62noqbdilbqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmUYkw8adANZpIgjs2lbmuQYl_eKuDui4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596479974377-p0nlsbmlcbv9kn4pogub62noqbdilbqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
