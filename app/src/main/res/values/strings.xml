@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Event planning</string>
     <string name="comment_page">תיבת הודעות</string>
+    <string name="app_name">SeatingArrangement</string>
 </resources>

@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Register">
+    tools:context=".RegistrationPage">
+
+
 
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="this is the register page"/>
@@ -19,7 +22,7 @@
         android:text="UserName"/>
 
     <EditText
-        android:id="@+id/etRegUserName"
+        android:id="@+id/etRegistrationUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter UserName"/>
@@ -30,7 +33,7 @@
         android:text="Email"/>
 
     <EditText
-        android:id="@+id/etRegEmail"
+        android:id="@+id/etRegistrationEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -42,15 +45,29 @@
         android:text="Password"/>
 
     <EditText
-        android:id="@+id/etRegPassword"
+        android:id="@+id/etRegistrationPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Enter Password"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ConfirmPassword"/>
+
+    <EditText
+        android:id="@+id/etRegistrationConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Enter Password"/>
 
     <Button
-        android:id="@+id/btnPerformRegister"
+        android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create New User"/>
+
+
 </LinearLayout>

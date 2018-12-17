@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".LoginPage">
+
+
 
     <TextView
+        android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="User Name"/>
 
     <EditText
-        android:id="@+id/etUserName"
+        android:id="@+id/etLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter User Name"/>
@@ -24,22 +27,23 @@
         android:text="Password"/>
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etLoginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Password"
         android:inputType="textPassword"/>
 
-   <Button
-       android:id="@+id/btnLogin"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="Login"/>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"/>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/registrationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"/>
+
 
 </LinearLayout>

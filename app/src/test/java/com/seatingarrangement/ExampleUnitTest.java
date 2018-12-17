@@ -1,4 +1,4 @@
-package com.example.nirav.eventplanning;
+package com.seatingarrangement;
 
 import org.junit.Test;
 

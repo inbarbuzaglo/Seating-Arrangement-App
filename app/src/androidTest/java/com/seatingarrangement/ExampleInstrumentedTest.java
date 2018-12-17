@@ -1,4 +1,4 @@
-package com.example.nirav.eventplanning;
+package com.seatingarrangement;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.nirav.eventplanning", appContext.getPackageName());
+        assertEquals("com.seatingarrangement", appContext.getPackageName());
     }
 }
