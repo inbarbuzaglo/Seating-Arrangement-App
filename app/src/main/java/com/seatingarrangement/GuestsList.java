@@ -1,4 +1,12 @@
 package com.seatingarrangement;
 
-public class GuestsList {
-}
+import android.app.Activity;
+
+
+
+    public class GuestsList extends Activity {
+
+
+
+
+    }

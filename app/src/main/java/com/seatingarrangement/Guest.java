@@ -28,7 +28,7 @@ public class Guest {
     }
 
     public String getGuest(){
-        return this.f_name+" "+this.l_name;
+        return this.f_name+" "+this.l_name+" "+this.amount;
     }
 
 }
