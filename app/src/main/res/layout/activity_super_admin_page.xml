@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SuperAdminPage"
-    android:orientation="vertical">
-<!--<LinearLayout-->
-    <!--android:layout_width=""-->
-    <!--android:layout_height="">-->
-    <!---->
-<!--</LinearLayout>-->
-    <TextView
+    android:orientation="vertical"
+    tools:context=".SuperAdminPage">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+
+    <ListView
+        android:id="@+id/eventsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="רשימת אירועים"
-        android:textSize="50px"
-        android:textAlignment="center" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="האירוע של ציקו ודיקו"
-        android:paddingTop="100px"
-        />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/newEventBtn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="אירוע חדש"
-        android:id="@+id/createNewEvent"/>
-</LinearLayout>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:text="add event" />
+
+    <!--</LinearLayout>-->
+</RelativeLayout>
