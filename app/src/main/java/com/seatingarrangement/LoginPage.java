@@ -32,8 +32,8 @@ public class LoginPage extends AppCompatActivity {
     private DatabaseReference ref;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String userId;
-    private userInfo uInfo;
-    private boolean flag = false;
+    private User uInfo;
+//    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class LoginPage extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
         ref = FirebaseDatabase.getInstance().getReference();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -81,17 +82,64 @@ public class LoginPage extends AppCompatActivity {
                 Log.d("Seating Arrangment", "OnComplete: " + task.isSuccessful());
                 userId = mAuth.getCurrentUser().getUid();
                 Log.d("~~~userId", userId);
+                final Intent i=new Intent();
                 if(!task.isSuccessful()){
                     Log.d("Seating Arrangment", "problem signing in: " + task.getException());
                     showError("There was a problem signing in");
                 }else{
+                    ref = FirebaseDatabase.getInstance().getReference();
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("~~~", "onDataChange1");
+                            getUserInfo(dataSnapshot);
+                            Log.d("~~~", "onDataChange2");
 
+                            Log.d("~~~mPermission", uInfo.getmPermission());
+                            if(uInfo.getmPermission().equals("admin")){
+                                i.setClass(LoginPage.this, SuperAdminPage.class);
+                                Log.d("~~login", "as admin");
+                            }else if(uInfo.getmPermission().equals("subAdmin")){
+                                i.setClass(LoginPage.this, AdminPage.class);
+                                Log.d("~~login", "as subAdmin");
+                            }else{
+                                i.setClass(LoginPage.this, AdminPage.class);
+                                Log.d("~~login", "as readOnly");
+                            }
+                            finish();
+                            if(i != null){
+                                LoginPage.this.startActivity(i);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                Log.d("~~~", "super admin intent");
+               // Intent i = new Intent(LoginPage.this, SuperAdminPage.class);
+          //  Intent i = new Intent(LoginPage.this, AdminPage.class);
+                Log.d("~~~", "b4 start");
+                LoginPage.this.startActivity(i);
+            }
+        });
+
+
+//        if(flag){
+//            ref = FirebaseDatabase.getInstance().getReference();
+//            ref.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Log.d("~~~", "onDataChange1");
+//                    getUserInfo(dataSnapshot);
+//                    Log.d("~~~", "onDataChange2");
 //                    Intent i;
 //                    Log.d("~~~mPermission", uInfo.getmPermission());
 //                    if(uInfo.getmPermission().equals("admin")){
 //                        i = new Intent(LoginPage.this, SuperAdminPage.class);
 //                        Log.d("~~login", "as admin");
-//                    }else if(uInfo.getmPermission().equals("subAd11min")){
+//                    }else if(uInfo.getmPermission().equals("subAdmin")){
 //                        i = new Intent(LoginPage.this, AdminPage.class);
 //                        Log.d("~~login", "as subAdmin");
 //                    }else{
@@ -102,45 +150,14 @@ public class LoginPage extends AppCompatActivity {
 //                    if(i != null){
 //                        LoginPage.this.startActivity(i);
 //                    }
-                }
-            }
-        });
-
-        Intent i = new Intent(LoginPage.this, SuperAdminPage.class);
-        finish();
-        LoginPage.this.startActivity(i);
-//        if(flag){
-        ref = FirebaseDatabase.getInstance().getReference();
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("~~~", "onDataChange1");
-                getUserInfo(dataSnapshot);
-                Log.d("~~~", "onDataChange2");
-                Intent i;
-                Log.d("~~~mPermission", uInfo.getmPermission());
-                if(uInfo.getmPermission().equals("admin")){
-                    i = new Intent(LoginPage.this, SuperAdminPage.class);
-                    Log.d("~~login", "as admin");
-                }else if(uInfo.getmPermission().equals("subAd11min")){
-                    i = new Intent(LoginPage.this, AdminPage.class);
-                    Log.d("~~login", "as subAdmin");
-                }else{
-                    i = new Intent(LoginPage.this, AdminPage.class);
-                    Log.d("~~login", "as readOnly");
-                }
-                finish();
-                if(i != null){
-                    LoginPage.this.startActivity(i);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                }
+//            });
+//        }
     }
-//    }
 
     @Override
     protected void onStart() {
@@ -150,11 +167,11 @@ public class LoginPage extends AppCompatActivity {
 
     private void getUserInfo(DataSnapshot dataSnapshot){
         Log.d("~~~", "getUserInfo");
-        uInfo = new userInfo();
-        uInfo.setmFirstName(dataSnapshot.child(userId).getValue(userInfo.class).getmFirstName());
-        uInfo.setmLastName(dataSnapshot.child(userId).getValue(userInfo.class).getmLastName());
-        uInfo.setmEmail(dataSnapshot.child(userId).getValue(userInfo.class).getmEmail());
-        uInfo.setmPermission(dataSnapshot.child(userId).getValue(userInfo.class).getmPermission());
+        uInfo = new User();
+        uInfo.setmFirstName(dataSnapshot.child(userId).getValue(User.class).getmFirstName());
+        uInfo.setmLastName(dataSnapshot.child(userId).getValue(User.class).getmLastName());
+        uInfo.setmEmail(dataSnapshot.child(userId).getValue(User.class).getmEmail());
+        uInfo.setmPermission(dataSnapshot.child(userId).getValue(User.class).getmPermission());
         Log.d("~~~", "END getUserInfo");
     }
 
@@ -165,50 +182,5 @@ public class LoginPage extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-    }
-
-
-
-    public class userInfo{
-        String mFirstName;
-        String mLastName;
-        String mEmail;
-        String mPermission;
-
-        public userInfo(){
-
-        }
-
-        public String getmFirstName() {
-            return mFirstName;
-        }
-
-        public void setmFirstName(String mFirstName) {
-            this.mFirstName = mFirstName;
-        }
-
-        public String getmLastName() {
-            return mLastName;
-        }
-
-        public void setmLastName(String mLastName) {
-            this.mLastName = mLastName;
-        }
-
-        public String getmEmail() {
-            return mEmail;
-        }
-
-        public void setmEmail(String mEmail) {
-            this.mEmail = mEmail;
-        }
-
-        public String getmPermission() {
-            return mPermission;
-        }
-
-        public void setmPermission(String mPermission) {
-            this.mPermission = mPermission;
-        }
     }
 }

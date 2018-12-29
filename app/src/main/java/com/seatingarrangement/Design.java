@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,14 +33,25 @@ import static android.content.ContentValues.TAG;
 
 public class Design extends AppCompatActivity {
 
+    ArrayList<Table> tables = new ArrayList<Table>();
     ArrayList<String> table_list = new ArrayList<String>();
     private DatabaseReference db;
     static int btn_id = 0;
 
+    private DatabaseReference mRef;
+    private String mEventId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design);
+
+        db = FirebaseDatabase.getInstance().getReference();
+
+        Bundle extras = getIntent().getExtras();
+        mEventId = extras.getString("eventId");
+        getAllTables();
+
+
 
         db = FirebaseDatabase.getInstance().getReference("Table");
         Button add = (Button) findViewById(R.id.addTable);
@@ -55,7 +67,6 @@ public class Design extends AppCompatActivity {
                 /** event_id in db*/
           //      Bundle extras = getIntent().getExtras();
            //     final int eventID = extras.getInt("event_id");
-
                 AddTable();
 
             }
@@ -68,16 +79,13 @@ public class Design extends AppCompatActivity {
 
     private void AddTable() {
 
+        EditText ed = (EditText) findViewById(R.id.edit);
 
         /**add new Table to db with unique id*/
         String TableId = db.push().getKey();
-        final Table T = new Table(TableId);
+        final Table T = new Table(ed.getText().toString(),TableId,mEventId);
         db.child(TableId).setValue(T);
-        table_list.add(T.getTable());
-
-
-        EditText ed = (EditText) findViewById(R.id.edit);
-        T.getnumber(ed);
+        table_list.add(ed.getText().toString());
 
 
         /** find tablelayout */
@@ -89,10 +97,10 @@ public class Design extends AppCompatActivity {
 
         /** create a new button to be in the row content */
         final Button myButton = new Button(this);
-        myButton.setText("" + T.getId()+ "");
+        myButton.setText("" + T.getnumber(ed)+ "");
         Drawable d = Drawable.createFromPath("@mipmap/ic_launcher_foreground");
         myButton.setBackgroundResource(R.mipmap.ic_launcher_foreground);
-        myButton.setId(T.getId());
+        myButton.setId(Integer.parseInt(T.getId()));
         myButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         /** add button to a row */
@@ -105,17 +113,16 @@ public class Design extends AppCompatActivity {
 
 
         /** Each button taking to table info */
-        View.OnClickListener listener1 = new View.OnClickListener() {
+        myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent in = new Intent(Design.this, TableInfo.class);
-                in.putExtra("table_id", T.getId());
+                in.putExtra("table_id", Integer.parseInt(T.getId()));
                 startActivity(in);
 
             }
-        };
-        myButton.setOnClickListener(listener1);
+        });
 
 /** REMOVE BUTTON */
 myButton.setOnLongClickListener(new View.OnLongClickListener() {
@@ -130,45 +137,48 @@ myButton.setOnLongClickListener(new View.OnLongClickListener() {
     }
 
 
-
-    /**Read tables from db.*/
-
-    private DatabaseReference mDatabase;
-    private ValueEventListener postListener;
-
-
-    public void ReadFromFireBase(final int eventID) {
-        postListener = new ValueEventListener() {
+    private String getEventId() {
+        final String[] resault = {""};
+        Log.d("@@@", "lihzcdsx" + resault[0]);
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                /**problem here:*/
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-
-                    Table T1 = childSnapshot.getValue(Table.class);
-                    if(T1.event_id==eventID) {
-                        if (!table_list.contains(T1.getTable())) {
-                            table_list.add(T1.getTable());
-
-                        }
-                    }
-
-                }
-
-
-
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String userId = auth.getCurrentUser().getUid();
+                User u = (dataSnapshot.child(userId).getValue(User.class));
+                resault[0] = u.getmEventId();
+                Log.d("@@@", "lihzcdsx" + resault[0]);
             }
 
-            /** Exception DB*/
             @Override
             public void onCancelled(DatabaseError databaseError) {
-// Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-// ...
             }
-        };
-        db.addValueEventListener(postListener);
+        });
+        Log.d("@@@", "lihzcdsx" + resault[0]);
+        return resault[0];
     }
+       private void getAllTables() {
+            db.child("Table").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                        Table t = snapshot.getValue(Table.class);
+
+                        if(t.getEvent_id().equals(mEventId))
+                        table_list.add(t.getUnique_id());
+                        tables.add(t);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+
 /**
     public int getnumber()
     {

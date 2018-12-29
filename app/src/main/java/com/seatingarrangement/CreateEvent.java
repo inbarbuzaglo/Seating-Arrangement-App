@@ -27,6 +27,7 @@ public class CreateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
+        mEventName = findViewById(R.id.eventName);
         mCreateEvent = findViewById(R.id.createNewEvent);
         mCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override

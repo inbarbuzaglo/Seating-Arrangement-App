@@ -5,44 +5,63 @@ import android.widget.EditText;
 
 public class Table {
 
-    private  static int dynamic_id;
-    int id; //table number
+    String id; //table number
     String unique_id; //table id in db
+    String event_id;
+
     Button btn;
-    int event_id;
 
+    public Table(String ID,String u_id , String e_id) {
 
+        this.id = ID;
+        this.unique_id = u_id;
+        this.event_id = e_id;
 
+    }
     public Table() {
 
-        dynamic_id++;
-        this.id=dynamic_id;
 
-    }
-    public Table(String uniqe) {
-        this.unique_id=uniqe;
 
     }
 
-    public void setId(int id) {
-         this.id=id;
+    public String getId() {
+        return id;
     }
 
-    public int getId() {
-       return this.id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTable(){
-        return this.unique_id+this.id+"";
+    public String getUnique_id() {
+        return unique_id;
     }
 
+    public void setUnique_id(String unique_id) {
+        this.unique_id = unique_id;
+    }
 
-    public int getnumber( EditText ed )
+    public String getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
+
+    public Button getBtn() {
+        return btn;
+    }
+
+    public void setBtn(Button btn) {
+        this.btn = btn;
+    }
+
+    public String getnumber(EditText ed )
     {
 
-        this.dynamic_id=Integer.parseInt(ed.getText().toString());
-        setId(this.dynamic_id);
+        this.id=ed.getText().toString();
+        setId(this.id);
 
-        return this.dynamic_id;
+        return this.id;
     }
 }
