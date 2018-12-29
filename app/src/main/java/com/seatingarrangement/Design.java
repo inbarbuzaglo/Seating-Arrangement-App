@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
-
+/** ID DOESNT INSERT TO DB */
 import static android.content.ContentValues.TAG;
 
 public class Design extends AppCompatActivity {
@@ -45,15 +45,17 @@ public class Design extends AppCompatActivity {
         Button add = (Button) findViewById(R.id.addTable);
         EditText  ed = (EditText) findViewById(R.id.edit);
 
-        /** event_id in db*/
-        Bundle extras = getIntent().getExtras();
-        final int eventID = extras.getInt("event_id");
+
 
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_id = btn_id + 1;
+
+                /** event_id in db*/
+          //      Bundle extras = getIntent().getExtras();
+           //     final int eventID = extras.getInt("event_id");
+
                 AddTable();
 
             }
@@ -74,6 +76,10 @@ public class Design extends AppCompatActivity {
         table_list.add(T.getTable());
 
 
+        EditText ed = (EditText) findViewById(R.id.edit);
+        T.getnumber(ed);
+
+
         /** find tablelayout */
         TableLayout ll = (TableLayout) findViewById(R.id.linear);
 
@@ -83,10 +89,10 @@ public class Design extends AppCompatActivity {
 
         /** create a new button to be in the row content */
         final Button myButton = new Button(this);
-        myButton.setText("" + getnumber() + "");
+        myButton.setText("" + T.getId()+ "");
         Drawable d = Drawable.createFromPath("@mipmap/ic_launcher_foreground");
         myButton.setBackgroundResource(R.mipmap.ic_launcher_foreground);
-        myButton.setId(getnumber());
+        myButton.setId(T.getId());
         myButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         /** add button to a row */
@@ -104,7 +110,7 @@ public class Design extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent in = new Intent(Design.this, TableInfo.class);
-                in.putExtra("table_id", getnumber());
+                in.putExtra("table_id", T.getId());
                 startActivity(in);
 
             }
@@ -122,6 +128,8 @@ myButton.setOnLongClickListener(new View.OnLongClickListener() {
             }
         });
     }
+
+
 
     /**Read tables from db.*/
 
@@ -161,14 +169,17 @@ myButton.setOnLongClickListener(new View.OnLongClickListener() {
         };
         db.addValueEventListener(postListener);
     }
-
+/**
     public int getnumber()
     {
-        Table T2 = new Table();
+
+        Table T2=new Table();
+        int num=T2.getId();
         EditText  ed = (EditText) findViewById(R.id.edit);
-        int num=Integer.parseInt(ed.getText().toString());
+        num=Integer.parseInt(ed.getText().toString());
         T2.setId(num);
 
         return num;
     }
+ */
 }

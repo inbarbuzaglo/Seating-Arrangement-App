@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -26,26 +28,30 @@ public class RegistrationPage extends AppCompatActivity {
     public static final String PREFERENCES = "seattingArrangmentPrefs";
     public static final String USER_NAME = "username";
 
-    private EditText userName;
-    private EditText email;
-    private EditText password;
-    private EditText confirmPassword;
-    private Button signUpButton;
+    private EditText mFirsName;
+    private EditText mLastName;
+    private EditText mEmail;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
+    private Button mSignUpButton;
 
     //Firebase instance variable
     private FirebaseAuth auth;
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_page);
 
-        userName = (EditText) findViewById(R.id.etRegistrationUserName);
-        email = (EditText) findViewById(R.id.etRegistrationEmail);
-        password = (EditText) findViewById(R.id.etRegistrationPassword);
-        confirmPassword = (EditText) findViewById(R.id.etRegistrationConfirmPassword);
-        signUpButton = (Button) findViewById(R.id.signupButton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        mFirsName = findViewById(R.id.etFirstName);
+        mLastName = findViewById(R.id.etLastName);
+        mEmail = findViewById(R.id.etRegisterEmail);
+        mPassword = findViewById(R.id.etRegisterPassword);
+        mConfirmPassword = findViewById(R.id.etRegisterConfirmPassword);
+
+        mSignUpButton = findViewById(R.id.signupButton);
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 attemptRegitration();
@@ -56,39 +62,38 @@ public class RegistrationPage extends AppCompatActivity {
     }
 
     private void attemptRegitration(){
-        email.setError(null);
-        password.setError(null);
+        mEmail.setError(null);
+        mPassword.setError(null);
 
-        String theEmail = email.getText().toString();
-        String thePassword = password.getText().toString();
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
-        Log.d("Seating Arrangment", "thePassword: " + thePassword);
-        Log.d("Seating Arrangment", "TextUtils.isEmpty(thePassword): " + TextUtils.isEmpty(thePassword));
-        if(TextUtils.isEmpty(thePassword)){
-            password.setError("this field is required");
-            focusView = password;
+        Log.d("Seating Arrangment", "thePassword: " + password);
+        Log.d("Seating Arrangment", "TextUtils.isEmpty(thePassword): " + TextUtils.isEmpty(password));
+        if(TextUtils.isEmpty(password)){
+            mPassword.setError("this field is required");
+            focusView = mPassword;
             cancel = true;
-        }else if(!isPasswordValid(thePassword)){
-            password.setError("password too short or does not match");
-            focusView = password;
+        }else if(!isPasswordValid(password)){
+            mPassword.setError("password too short or does not match");
+            focusView = mPassword;
             cancel = true;
         }
 
-        if(TextUtils.isEmpty(theEmail)){
-            email.setError("this field is required");
-            focusView = email;
+        if(TextUtils.isEmpty(email)){
+            mEmail.setError("this field is required");
+            focusView = mEmail;
             cancel = true;
-        }else if(!isEmailValid(theEmail)){
-            email.setError("invalid email address");
-            focusView = email;
+        }else if(!isEmailValid(email)){
+            mEmail.setError("invalid email address");
+            focusView = mEmail;
             cancel = true;
         }
         if(cancel){
             focusView.requestFocus();
         }else{
-            //TODO call create FirebaseUser() here
             createFirebaseUser();
         }
     }
@@ -101,22 +106,21 @@ public class RegistrationPage extends AppCompatActivity {
     //password validation
     private boolean isPasswordValid(String pass){
 
-        String confirmPass = confirmPassword.getText().toString();
+        String confirmPass = mConfirmPassword.getText().toString();
 
-        if(pass.length() < 4 || !confirmPass.equals(pass)){
-//            Toast.makeText(RegistrationPage.this, "הסיסמא חייבת להכיל לפחות 4 תווים.", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        return true;
+        return pass.length() >= 4 && confirmPass.equals(pass);
     }
 
     private void createFirebaseUser(){
-        String theEmail = email.getText().toString();
-        String thePassword = password.getText().toString();
+        final String firstName = mFirsName.getText().toString();
+        final String lastName = mLastName.getText().toString();
+        final String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
+
         Log.d("Seating Arrangment", "in createFirebaseUser method: ");
-        Log.d("Seating Arrangment", "theEmail: " + theEmail);
-        Log.d("Seating Arrangment", "thePassword: " + thePassword);
-        auth.createUserWithEmailAndPassword(theEmail, thePassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        Log.d("Seating Arrangment", "theEmail: " + email);
+        Log.d("Seating Arrangment", "thePassword: " + password);
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d("Seating Arrangment", "create user onComplete: " + task.isSuccessful());
@@ -127,7 +131,11 @@ public class RegistrationPage extends AppCompatActivity {
                     Log.d("Seating Arrangment","Failed Registration: "+e.getMessage());
                     showErrorDialog("Registration faild.");
                 }else{
-                    saveUserName();
+
+                    User u = new User(firstName, lastName, email, "admin");
+                    ref = FirebaseDatabase.getInstance().getReference();
+                    ref.child("User").child(auth.getCurrentUser().getUid()).setValue(u);
+//                    saveUserName();
                     Intent i = new Intent(RegistrationPage.this, LoginPage.class);
                     finish();
                     RegistrationPage.this.startActivity(i);
@@ -145,9 +153,4 @@ public class RegistrationPage extends AppCompatActivity {
                 .show();
     }
 
-    private void saveUserName(){
-        String theUserName = userName.getText().toString();
-        SharedPreferences prefs = getSharedPreferences(PREFERENCES, 0);
-        prefs.edit().putString(USER_NAME, theUserName).apply();
-    }
 }

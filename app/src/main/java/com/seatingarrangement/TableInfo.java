@@ -37,12 +37,14 @@ public class TableInfo extends ListActivity {
      * Items entered by the user is stored in this ArrayList variable
      */
     ArrayList<String> al = new ArrayList<String>();
+
     int id;
     /**
      * Declaring an ArrayAdapter to set items to ListView
      */
     ArrayAdapter<String> adapter;
     DatabaseReference db;
+    DatabaseReference db_g;
     DatabaseReference db_table;
     //  int id_table = 1; //recive from design view onclick
 
@@ -57,11 +59,13 @@ public class TableInfo extends ListActivity {
         /**GET GUEST LIST FROM DB BY TABLE ID(RECIVED FROM DESIGN VIEW) AND INIT ARRAYLIST WITH THIS LIST*/
 
         db = FirebaseDatabase.getInstance().getReference("Guest");
+        db_g = FirebaseDatabase.getInstance().getReference("Guest").child("id");
+
+
         db_table = FirebaseDatabase.getInstance().getReference("Table");
         setContentView(R.layout.activity_table_info);
         ListView lv;
         lv = getListView();
-
 
         Bundle extras = getIntent().getExtras();
         final int tableID = extras.getInt("table_id");
@@ -70,6 +74,9 @@ public class TableInfo extends ListActivity {
         tv.setText(String.valueOf(tableID));
 
         ReadFromFireBase(tableID);
+        Guest g=new Guest();
+
+
         /** Reference to the button of the layout main.xml */
         Button btn = (Button) findViewById(R.id.add_list_btn);
 
@@ -97,21 +104,34 @@ public class TableInfo extends ListActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 // TODO Auto-generated method stub
+                final String guestToDelete= al.get(position);
                 al.remove(position);
                 adapter.notifyDataSetChanged();
 
-                Query query = db.child("id").orderByChild("guest").equalTo("lili ll 2");
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                postListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
 
+                            Guest g1 = childSnapshot.getValue(Guest.class);
+                            if (g1.getGuest().equals(guestToDelete)) {
+
+                                childSnapshot.getRef().removeValue();
+                            }
+                        }
 
                     }
+
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        // Getting Post failed, log a message
+                        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                        // ...
                     }
-                });
+                };
+
+                db.addValueEventListener(postListener);
 
                 Toast.makeText(TableInfo.this, "Item Deleted", Toast.LENGTH_LONG).show();
                 return true;
@@ -159,10 +179,10 @@ public class TableInfo extends ListActivity {
                 // Get Post object and use the values to update the UI
                 /**problem here:*/
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    // String table=Integer.toString(tableID);
 
                     Guest g1 = childSnapshot.getValue(Guest.class);
                     if(g1.table_id==tableID) {
+
                         if (!al.contains(g1.getGuest())) {
                             al.add(g1.getGuest());
                         }
@@ -185,6 +205,8 @@ public class TableInfo extends ListActivity {
         ;
         db.addValueEventListener(postListener);
     }
+
+
 }
 
 
