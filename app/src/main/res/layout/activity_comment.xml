@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Comment">
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From"/>
+
+
+    <EditText
+        android:id="@+id/From"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="please write your full name" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="subject"/>
+
+
+    <EditText
+        android:id="@+id/theSubjecttext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Comment Subject"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Details"/>
+
+
+    <EditText
+        android:id="@+id/theDetailstext"
+        android:layout_width="match_parent"
+        android:layout_height="158dp"
+        android:hint="write something..." />
+
+
+    <Button
+        android:id="@+id/Send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send your comment"/>
+
+</LinearLayout>

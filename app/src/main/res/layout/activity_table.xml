@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminPage">
+    tools:context=".Table">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="go to table list"
-        android:id="@+id/tableList"/>
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="445dp"
+        android:layout_height="55dp"
+        android:ems="5"
+        android:hint="Insert Table number and press on Add new table"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="-50dp"
+        tools:layout_editor_absoluteY="59dp" />
 
 
 </android.support.constraint.ConstraintLayout>

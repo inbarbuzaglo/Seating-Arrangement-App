@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,66 +8,56 @@
     tools:context=".RegistrationPage">
 
 
-
-    <TextView
-
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="this is the register page"/>
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="UserName"/>
 
-    <EditText
-        android:id="@+id/etRegistrationUserName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter UserName"/>
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email"/>
-
-    <EditText
-        android:id="@+id/etRegistrationEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Enter Email"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Password"/>
-
-    <EditText
-        android:id="@+id/etRegistrationPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Enter Password"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ConfirmPassword"/>
-
-    <EditText
-        android:id="@+id/etRegistrationConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="Enter Password"/>
-
-    <Button
-        android:id="@+id/signupButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create New User"/>
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"/>
 
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/etRegisterEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email"/>
+
+
+        <EditText
+            android:id="@+id/etRegisterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+
+        <EditText
+            android:id="@+id/etRegisterConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Confirm Password"/>
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create New User"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

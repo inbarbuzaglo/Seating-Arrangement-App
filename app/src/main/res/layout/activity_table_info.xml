@@ -1,15 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TableInfo">
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:context=".TableInfo"
+    >
+
+
+    <TextView
+        android:id="@+id/tablenum"
+        android:layout_width="171dp"
+        android:layout_height="52dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="57dp"
+        android:text="Table number:"
+        android:textSize="50px" />
+
+    <TextView
+
+        android:layout_width="250dp"
+        android:layout_height="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="120dp"
+
+        android:text="Guests List:"
+        android:textSize="50px" />
+
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="260dp"
+        android:layout_height="267dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="109dp"
+        android:layout_marginBottom="82dp"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/TableNum"
+        android:layout_width="62dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="140dp"
+        android:textColor="@color/colorPrimary"
+        android:textFontWeight="20px"
+        android:textSize="50px" />
 
     <Button
+        android:id="@+id/commentbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="new table"
-        android:id="@+id/createNewTable"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="375dp"
+        android:text="comment" />
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/txtItem1"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="278dp"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="first name" />
+
+    <Button
+        android:id="@+id/add_list_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txtItem1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-1dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Add guest" />
+
+    <EditText
+        android:id="@+id/txtItem2"
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/txtItem1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="last name" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="25dp"
+        android:ems="10"
+        android:hint="number"
+        android:inputType="number" />
+
+</RelativeLayout>
