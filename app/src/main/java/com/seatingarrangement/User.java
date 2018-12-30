@@ -6,6 +6,7 @@ class User {
     String mLastName;
     String mEmail;
     String mPermission;
+    String mEventId;
 
     public User(){
 
@@ -16,6 +17,12 @@ class User {
         mLastName = lastName;
         mEmail = email;
         mPermission = permission;
+    } public  User(String firstName, String lastName, String email, String permission, String eventId){
+        mFirstName = firstName;
+        mLastName = lastName;
+        mEmail = email;
+        mPermission = permission;
+        mEventId = eventId;
     }
 
     public String getmFirstName() {
@@ -48,5 +55,13 @@ class User {
 
     public void setmPermission(String mPermission) {
         this.mPermission = mPermission;
+    }
+
+    public String getmEventId() {
+        return mEventId;
+    }
+
+    public void setmEventId(String mEventId) {
+        this.mEventId = mEventId;
     }
 }
