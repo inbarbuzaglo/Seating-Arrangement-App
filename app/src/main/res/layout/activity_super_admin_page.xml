@@ -7,26 +7,33 @@
     android:orientation="vertical"
     tools:context=".SuperAdminPage">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
-
-
-    <ListView
-        android:id="@+id/eventsListView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp" />
+        android:layout_height="463dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-    <Button
-        android:id="@+id/newEventBtn"
+
+        <ListView
+            android:id="@+id/eventsListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:text="add event" />
+        android:layout_alignParentBottom="true">
 
-    <!--</LinearLayout>-->
+        <Button
+            android:id="@+id/newEventBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="add event" />
+    </LinearLayout>
+
+
+
 </RelativeLayout>

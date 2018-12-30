@@ -55,4 +55,11 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Log.d("~~~", "override");
+        Intent i = new Intent(CreateEvent.this, SuperAdminPage.class);
+        finish();
+        CreateEvent.this.startActivity(i);
+    }
 }

@@ -20,6 +20,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainPage.this, LoginPage.class);
+                finish();
                 MainPage.this.startActivity(i);
             }
         });
