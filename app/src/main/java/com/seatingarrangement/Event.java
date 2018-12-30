@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +18,7 @@ public class Event extends AppCompatActivity {
 
     private Button mDelete;
     private String mId;
-    private DatabaseReference mRef;
+//    private DatabaseReference mRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,16 @@ public class Event extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         mId = extras.getString("key");
 
-        mRef = FirebaseDatabase.getInstance().getReference();
+//        mRef = FirebaseDatabase.getInstance().getReference();
 
         mDelete = findViewById(R.id.deleteEvent);
         mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("~~~", "f" + mId);
-                mRef.child(mId).removeValue();
+//                mRef.child(mId).removeValue();
+                FirebaseDatabase.getInstance().getReference().child(mId).removeValue();
+                showToast();
                 Intent i = new Intent(Event.this, SuperAdminPage.class);
                 finish();
                 Event.this.startActivity(i);
@@ -47,5 +50,9 @@ public class Event extends AppCompatActivity {
         Intent i = new Intent(Event.this, SuperAdminPage.class);
         finish();
         Event.this.startActivity(i);
+    }
+
+    private void showToast(){
+        Toast.makeText(this, "deleted", Toast.LENGTH_SHORT).show();
     }
 }
