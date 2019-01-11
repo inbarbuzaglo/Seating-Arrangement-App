@@ -94,6 +94,7 @@ public class RegistrationPage extends AppCompatActivity {
         if(cancel){
             focusView.requestFocus();
         }else{
+            //TODO call create FirebaseUser() here
             createFirebaseUser();
         }
     }

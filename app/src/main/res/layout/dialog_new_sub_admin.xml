@@ -12,27 +12,34 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="first name"
             android:id="@+id/dialogFirstName"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="last name"
             android:id="@+id/dialogLastName"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="E-mail"
             android:id="@+id/dialogEmail"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Password"
             android:id="@+id/dialogPassword"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Confirm Password"
             android:id="@+id/dialogConfirmPassword"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="create"
+            android:background="@color/colorPrimary"
             android:id="@+id/dialogCreateUser"/>
     </LinearLayout>
 </RelativeLayout>

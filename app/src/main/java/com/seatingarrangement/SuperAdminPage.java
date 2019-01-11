@@ -34,22 +34,19 @@ public class SuperAdminPage extends AppCompatActivity {
     private Map<String, String> mEventIdToName;
 
     private FirebaseAuth mAuth;
-//    private FirebaseDatabase mFirebaseDatabase;
-//    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_super_admin_page);
 
-        mRef = FirebaseDatabase.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference().child("Event");
         mArrayList = new ArrayList<>();
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mArrayList);
         mEventIdToName = new HashMap<>();
 
         newEvent = findViewById(R.id.newEventBtn);
         mListView = findViewById(R.id.eventsListView);
-        mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -69,16 +66,13 @@ public class SuperAdminPage extends AppCompatActivity {
                     i.putExtra("key", idKey);
                     mEventIdToName.remove(idKey);
                     i.setClass(SuperAdminPage.this, Event.class);
-                    i.putExtra("position", position);
-                    i.putExtra("id", id);
-                    //                finish();
                     SuperAdminPage.this.startActivity(i);
                 }
             }
         });
 
 
-        mRef.child("Event").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<EventInfo> events = new ArrayList<>();
@@ -90,9 +84,9 @@ public class SuperAdminPage extends AppCompatActivity {
                 }
                 for(EventInfo ev : events){
                     mArrayList.add(ev.getmName());
-
                     Log.d("~~~", "ev.getmName"+ev.getmName());
                 }
+                mListView.setAdapter(mAdapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -103,13 +97,9 @@ public class SuperAdminPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(SuperAdminPage.this, CreateEvent.class);
-//                finish();
+                finish();
                 SuperAdminPage.this.startActivity(i);
             }
         });
     }
-
-//    private void toastMessage(String message){
-//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-//    }
 }

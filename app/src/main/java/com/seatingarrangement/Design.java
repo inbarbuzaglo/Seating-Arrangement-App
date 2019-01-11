@@ -48,7 +48,9 @@ public class Design extends AppCompatActivity {
         db = FirebaseDatabase.getInstance().getReference();
 
         Bundle extras = getIntent().getExtras();
+        Log.d("&&&", "extras.getString(eventId): " + extras.getString("eventId"));
         mEventId = extras.getString("eventId");
+        Log.d("&&&", "mEventId: " + mEventId);
         getAllTables();
 
 
@@ -65,8 +67,8 @@ public class Design extends AppCompatActivity {
             public void onClick(View v) {
 
                 /** event_id in db*/
-          //      Bundle extras = getIntent().getExtras();
-           //     final int eventID = extras.getInt("event_id");
+                //      Bundle extras = getIntent().getExtras();
+                //     final int eventID = extras.getInt("event_id");
                 AddTable();
 
             }
@@ -98,8 +100,8 @@ public class Design extends AppCompatActivity {
         /** create a new button to be in the row content */
         final Button myButton = new Button(this);
         myButton.setText("" + T.getnumber(ed)+ "");
-        Drawable d = Drawable.createFromPath("@mipmap/ic_launcher_foreground");
-        myButton.setBackgroundResource(R.mipmap.ic_launcher_foreground);
+        Drawable d = Drawable.createFromPath("@mipmap/ic_launcher_foreground2");
+        myButton.setBackgroundResource(R.mipmap.ic_launcher_foreground2);
         myButton.setId(Integer.parseInt(T.getId()));
         myButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -125,7 +127,7 @@ public class Design extends AppCompatActivity {
         });
 
 /** REMOVE BUTTON */
-myButton.setOnLongClickListener(new View.OnLongClickListener() {
+        myButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -157,39 +159,39 @@ myButton.setOnLongClickListener(new View.OnLongClickListener() {
         Log.d("@@@", "lihzcdsx" + resault[0]);
         return resault[0];
     }
-       private void getAllTables() {
-            db.child("Table").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+    private void getAllTables() {
+        db.child("Table").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        Table t = snapshot.getValue(Table.class);
+                    Table t = snapshot.getValue(Table.class);
 
-                        if(t.getEvent_id().equals(mEventId))
+                    if(t.getEvent_id().equals(mEventId))
                         table_list.add(t.getUnique_id());
-                        tables.add(t);
+                    tables.add(t);
 
-                    }
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 
 /**
-    public int getnumber()
-    {
+ public int getnumber()
+ {
 
-        Table T2=new Table();
-        int num=T2.getId();
-        EditText  ed = (EditText) findViewById(R.id.edit);
-        num=Integer.parseInt(ed.getText().toString());
-        T2.setId(num);
+ Table T2=new Table();
+ int num=T2.getId();
+ EditText  ed = (EditText) findViewById(R.id.edit);
+ num=Integer.parseInt(ed.getText().toString());
+ T2.setId(num);
 
-        return num;
-    }
+ return num;
+ }
  */
 }

@@ -2,6 +2,7 @@ package com.seatingarrangement;
 
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -66,6 +67,24 @@ public class TableInfo extends ListActivity {
         setContentView(R.layout.activity_table_info);
         ListView lv;
         lv = getListView();
+
+        Button btn2 = (Button) findViewById(R.id.commentbtn);
+
+
+        View.OnClickListener listener1 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent in = new Intent(TableInfo.this, Comment.class);
+                startActivity(in);
+            }
+
+        };
+        btn2.setOnClickListener(listener1);
+
+
+
+
 
         Bundle extras = getIntent().getExtras();
         final int tableID = extras.getInt("table_id");

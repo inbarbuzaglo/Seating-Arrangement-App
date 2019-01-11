@@ -31,6 +31,7 @@ public class Event extends AppCompatActivity {
     private Button mDelete;
     private Button mNewUser;
     private String mId;
+    private Button mGoToEvent;
     private DatabaseReference mRef;
     private Dialog d;
 
@@ -48,7 +49,7 @@ public class Event extends AppCompatActivity {
         mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("~~~", "f" + mId);
+                Log.d("~", "f" + mId);
                 mRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,7 +57,7 @@ public class Event extends AppCompatActivity {
                             @Override
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                 if(databaseError != null){
-                                    Log.d("~~~", "Error: " + databaseError.getMessage());
+                                    Log.d("~", "Error: " + databaseError.getMessage());
                                 }
                             }
                         });
@@ -94,6 +95,16 @@ public class Event extends AppCompatActivity {
                         d.cancel();
                     }
                 });
+            }
+        });
+        mGoToEvent = findViewById(R.id.button2);
+        mGoToEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.putExtra("eventId", mId);
+                i.setClass(Event.this, Design.class);
+                Event.this.startActivity(i);
             }
         });
     }
@@ -136,6 +147,7 @@ public class Event extends AppCompatActivity {
         }else{
             createFirebaseUser();
         }
+
 
     }
 
